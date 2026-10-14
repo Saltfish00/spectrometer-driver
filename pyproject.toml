@@ -1,0 +1,62 @@
+# ============================================================================
+#  光谱仪驱动包 · 项目配置
+#  遵循 PEP 621 标准，现代 Python 打包推荐做法
+# ============================================================================
+
+[build-system]
+# 构建后端：setuptools（最通用、兼容性最好）
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spectrometer-driver"
+version = "0.2.1"
+description = "TLM 系列串口光谱仪 Python 驱动包（含帧同步修复）"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Your Name", email = "you@example.com" }]
+keywords = ["spectrometer", "serial", "spectroscopy", "instrumentation"]
+
+# PyPI 分类标签：方便检索与过滤
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+
+# 运行时必装依赖
+dependencies = [
+    "pyserial>=3.5",     # 串口通信
+    "numpy>=1.20",       # 数值计算
+    "scipy>=1.7",        # 中值 / SG 滤波
+    "PyWavelets>=1.2",   # 小波去噪
+]
+
+# 可选依赖：按需安装
+[project.optional-dependencies]
+pca = ["scikit-learn>=1.0"]      # PCA 去噪
+plot = ["matplotlib>=3.4"]       # 绘图
+dev = [
+    "pytest>=7.0",
+    "black>=23.0",
+    "ruff>=0.1",
+]
+
+# 源码使用 src-layout，将源码与测试隔离，避免"隐式导入本地目录"
+[tool.setuptools.packages.find]
+where = ["src"]
+
+# pytest 默认配置
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
+
+# 代码风格工具
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100
