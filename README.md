@@ -58,7 +58,7 @@
 ### 从源码安装
 
 ```bash
-git clone https://github.com/yourname/spectrometer-driver.git
+git clone https://github.com/Saltfish00/spectrometer-driver.git
 cd spectrometer-driver
 pip install -e .
 ```
